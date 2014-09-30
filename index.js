@@ -41,8 +41,10 @@ var plugin = function (opts) {
 		// save the old path for later
 		file.revOrigPath = file.path;
 		file.revOrigBase = file.base;
+		
+		var hashLength = opts.hashLength ? Math.max(opts.hashLength, 32) : 8;
 
-		var hash = file.revHash = md5(file.contents).slice(0, 8);
+		var hash = file.revHash = md5(file.contents).slice(0, hashLength);
 		var ext = path.extname(file.path);
 		var filename = path.basename(file.path, ext) + '-' + hash + ext;
 		file.path = path.join(path.dirname(file.path), filename);
