@@ -21,7 +21,8 @@ function relPath(base, filePath) {
 	}
 }
 
-var plugin = function () {
+var plugin = function (opts) {
+	opts = opts || {};
 	return through.obj(function (file, enc, cb) {
 		if (file.isNull()) {
 			cb(null, file);
@@ -31,6 +32,10 @@ var plugin = function () {
 		if (file.isStream()) {
 			cb(new gutil.PluginError('gulp-rev', 'Streaming not supported'));
 			return;
+		}
+		
+		if (opts.base){
+			file.path = file.path.split(base).join('')
 		}
 
 		// save the old path for later
