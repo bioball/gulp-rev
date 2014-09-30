@@ -35,7 +35,7 @@ var plugin = function (opts) {
 		}
 		
 		if (opts.base){
-			file.path = file.path.split(base).join('')
+			file.path = file.path.split(opts.base).join('')
 		}
 
 		// save the old path for later
